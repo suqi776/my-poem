@@ -7,16 +7,17 @@
     <title>myvite</title>
   </head>
   <script>
-    ;(function () {
-      const prefersDark =
-        window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-      const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
-      if (setting === 'dark' || (prefersDark && setting !== 'light'))
-        document.documentElement.classList.toggle('dark', true)
-    })()
+    // ;(function () {
+    //   const prefersDark =
+    //     window.matchMedia &&
+    //     window.matchMedia('(prefers-color-scheme: dark)').matches
+    //   const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
+    //   if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    //     document.documentElement.classList.toggle('dark', true)
+    // })()
+    // dark:text-white dark:bg-hex-121212
   </script>
-  <body dark:text-white dark:bg-hex-121212>
+  <body >
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
