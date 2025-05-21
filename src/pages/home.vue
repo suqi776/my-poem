@@ -1,11 +1,22 @@
 <script setup>
 import { Converter } from 'opencc-js'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { poemApi } from '../api/index'
+import { useLangStore } from '../store/lang'
+import { useStyleStore } from '../store/style'
 
-const converter = Converter({ from: 'tw', to: 'cn' }) // 繁体转简体
+const langStore = useLangStore()
+const styleStore = useStyleStore()
+
+const converter = computed(() =>
+  Converter({
+    from: langStore.lang === 'cn' ? 'tw' : 'cn',
+    to: langStore.lang,
+  }),
+)
 
 const poems = ref([])
+const originalPoem = ref(null) // 保存原始繁体数据
 const currentIndex = ref(0)
 
 // 判断是否是标点符号
@@ -35,23 +46,28 @@ const lines = computed(() => {
   return result
 })
 
+// 封装转换并赋值
+function convertAndSet(poem) {
+  const simpleTitle = converter.value(poem.title)
+  const simpleAuthor = converter.value(poem.author || '未知作者')
+  const simpleParagraphs = poem.paragraphs.map(p => converter.value(p))
+
+  poems.value = [
+    {
+      title: simpleTitle,
+      author: simpleAuthor,
+      content: simpleParagraphs,
+    },
+  ]
+}
+
 // 请求一首随机诗
 async function getPoem() {
   try {
     const res = await poemApi.getPoemsRandom()
     if (res.data && res.data.title && res.data.paragraphs) {
-      // 转简体
-      const simpleTitle = converter(res.data.title)
-      const simpleAuthor = converter(res.data.author || '未知作者')
-      const simpleParagraphs = res.data.paragraphs.map(p => converter(p))
-
-      poems.value = [
-        {
-          title: simpleTitle,
-          author: simpleAuthor,
-          content: simpleParagraphs,
-        },
-      ]
+      originalPoem.value = res.data
+      convertAndSet(res.data)
       currentIndex.value = 0
     }
   }
@@ -63,20 +79,28 @@ async function getPoem() {
 // 点击下一首
 function nextPoem() {
   getPoem()
-
   window.scrollTo({
     top: 0,
-    behavior: 'smooth', // 平滑滚动，可选
+    behavior: 'smooth',
   })
 }
 
-// 初始化加载
+// 监听语言变化并重新转换当前诗词
+watch(
+  () => langStore.lang,
+  () => {
+    if (originalPoem.value)
+      convertAndSet(originalPoem.value)
+  },
+)
+
 onMounted(() => {
   getPoem()
 })
 </script>
 
 <template>
+  <LangSwitcher />
   <div class="relative mx-auto max-w-md min-h-screen flex flex-col p-4">
     <!-- 背景图虚化层 -->
     <div class="background-blur" />
@@ -110,7 +134,12 @@ onMounted(() => {
           :key="idx"
           class="flex flex-wrap justify-center gap-1"
         >
-          <div v-for="(char, cidx) in Array.from(line)" :key="cidx" class="field-char">
+          <div
+            v-for="(char, cidx) in Array.from(line)"
+            :key="cidx"
+            class="field-char"
+            :style="styleStore.hasGrid ? { border: '1px solid #e0e0e0', height: '2.5rem', width: '2.5rem', lineHeight: '2.5rem' } : {}"
+          >
             {{ char }}
           </div>
         </div>
@@ -158,11 +187,12 @@ onMounted(() => {
   font-size: 1.5rem;
   font-weight: 500;
   user-select: none;
-  border: 1px solid #e0e0e0;
   box-sizing: border-box;
-  height: 2.5rem;
+  /* border: 1px solid #e0e0e0; */
+
+  /* height: 2.5rem;
   width: 2.5rem;
-  line-height: 2.5rem;
+  line-height: 2.5rem; */
   text-align: center;
   flex-shrink: 0;
   z-index: 0;
