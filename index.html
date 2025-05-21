@@ -21,6 +21,11 @@
     //     document.documentElement.classList.toggle('dark', true)
     // })()
     // dark:text-white dark:bg-hex-121212
+
+    document.addEventListener('dblclick', function(event) {
+      event.preventDefault();
+    }, { passive: false });
+
   </script>
   <body >
     <div id="app"></div>

@@ -8,9 +8,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Footer: typeof import('./src/components/Footer.vue')['default']
-    LangSwitcher: typeof import('./src/components/LangSwitcher.vue')['default']
+    LangSwitcher: typeof import('./src/components/ShowSwitcher.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ShowSwitcher: typeof import('./src/components/ShowSwitcher.vue')['default']
     StyleSwitcher: typeof import('./src/components/StyleSwitcher.vue')['default']
   }
 }

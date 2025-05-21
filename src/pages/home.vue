@@ -100,7 +100,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <LangSwitcher />
+  <ShowSwitcher />
   <div class="relative mx-auto max-w-md min-h-screen flex flex-col p-4">
     <!-- 背景图虚化层 -->
     <div class="background-blur" />
