@@ -63,6 +63,11 @@ async function getPoem() {
 // 点击下一首
 function nextPoem() {
   getPoem()
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // 平滑滚动，可选
+  })
 }
 
 // 初始化加载
