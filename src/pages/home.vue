@@ -101,17 +101,15 @@ onMounted(() => {
           </div>
         </div>
       </div>
+
+      <button class="w-full py-10" @click="nextPoem">
+        下一首诗
+      </button>
     </main>
 
     <main v-else class="flex flex-grow items-center justify-center">
       <p>加载中...</p>
     </main>
-
-    <footer class="mt-6">
-      <button class="w-full border border-blue-500 rounded py-2 hover:bg-blue-100" @click="nextPoem">
-        下一首诗
-      </button>
-    </footer>
   </div>
 </template>
 
