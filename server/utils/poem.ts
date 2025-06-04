@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import process from 'node:process'
 
 export async function loadPoems(type?: 'tang' | 'song') {
-  const basePath = join(process.cwd(), 'server/data')
+  const basePath = join(process.cwd(), 'server/assets')
 
   if (type) {
     const filePath = join(basePath, `${type}.json`)
