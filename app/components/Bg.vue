@@ -1,29 +1,6 @@
-<script setup lang="ts">
-const props = defineProps<{
-  pcImage: string
-  mobileImage: string
-}>()
-
-const isPC = ref(true)
-
-function updateScreenType() {
-  isPC.value = window.innerWidth >= 768
-}
-
-onMounted(() => {
-  updateScreenType()
-  window.addEventListener('resize', updateScreenType)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateScreenType)
-})
-</script>
-
 <template>
   <div
-    class="relative min-h-screen w-full bg-cover bg-fixed bg-center"
-    :style="`background-image: url('${isPC ? props.pcImage : props.mobileImage}')`"
+    class="relative min-h-screen w-full bg-[url('/falao.jpg')] bg-cover bg-fixed bg-center md:bg-[url('/pc-bg.png')]"
   >
     <!-- 半透明遮罩层 -->
     <div class="absolute inset-0 bg-white/60 dark:bg-black/40" />
