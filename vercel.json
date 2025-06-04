@@ -1,7 +1,9 @@
 {
-  "functions": {
-    "server/api/**/*.ts": {
-      "includeFiles": "server/data/**/*"
+  "builds": [
+    {
+      "config": {
+        "serverFiles": ["server/**"]
+      }
     }
-  }
+  ]
 }
