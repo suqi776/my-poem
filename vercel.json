@@ -1,11 +1,6 @@
 {
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  },
   "functions": {
-    "api/**/*.ts": {
+    "server/api/**/*.ts": {
       "includeFiles": "server/data/**/*"
     }
   }
