@@ -30,10 +30,6 @@ const { data } = useFetch('/api/poems', {
       </li>
     </ul>
 
-    <div v-else-if="data?.error" class="text-red-500">
-      {{ data.error }}
-    </div>
-
     <div v-else class="animate-pulse text-gray-600 italic">
       Loading...
     </div>

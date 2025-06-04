@@ -1,3 +1,4 @@
+import type { Poem } from '../../../types/poem.d.ts'
 import { loadPoems } from '../../utils/poem'
 
 export default defineEventHandler(async (event) => {
@@ -5,15 +6,15 @@ export default defineEventHandler(async (event) => {
   const id = query.id as string | undefined
   const author = query.author as string | undefined
   const tag = query.tag as string | undefined
-  const poems = await loadPoems()
+  const poems: Poem[] = await loadPoems()
 
   if (id) {
-    const poem = poems.find((p: any) => p.id === id)
-    return poem ?? { error: '未找到该诗歌' }
+    const poem = poems.find(p => p.id === id)
+    return poem ?? { error: '未找到相关诗歌', poems: [] }
   }
 
   if (author) {
-    const results = poems.filter((p: any) =>
+    const results = poems.filter(p =>
       p.author.includes(author),
     )
     return results.length > 0
@@ -25,7 +26,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (tag) {
-    const results = poems.filter((p: any) =>
+    const results = poems.filter(p =>
       Array.isArray(p.tags) && p.tags.includes(tag),
     )
 
