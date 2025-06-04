@@ -48,7 +48,7 @@
 
   // tailwindcss
   "files.associations": {
-    "*.css": "tailwindcss"
+    "*.css": "postcss"
   },
   "editor.quickSuggestions": {
     "strings": "on"

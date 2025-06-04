@@ -1,16 +1,17 @@
-# My
-- [Vue 3](https://github.com/vuejs/core), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/)
-- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import)
-- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
-- [UnoCSS](https://github.com/unocss/unocss)
-- [VueUse](https://github.com/antfu/vueuse)
-- [Vue Router](https://github.com/vuejs/vue-router)
-- [Iconify](https://iconify.design)
-- [eslint](https://github.com/antfu/eslint-config)
+### Introduction
+Nuxt3+Typescript+Pinia+UnoCSS+VueUse boilerplate.
 
-# Go
+### Nuxt Modules
+
+- [VueUse](https://github.com/vueuse/vueuse) - collection of useful composition APIs.
+- [ColorMode](https://github.com/nuxt-modules/color-mode) - dark and Light mode with auto detection made easy with Nuxt.
+- [UnoCSS](https://github.com/unocss/unocss) - the instant on-demand atomic CSS engine.
+- [Pinia](https://github.com/vuejs/pinia) - intuitive, type safe, light and flexible Store for Vue.
+
+### Use
+
 ```bash
-npx degit sqsuqi/myvite my-vite-app
-cd my-vite-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
+npx degit suqi776/my-nuxt my-nuxt-app
+cd my-nuxt-app
+pnpm i
 ```
