@@ -10,6 +10,10 @@ const { data } = useFetch('/api/poems', {
     tag,
   },
 })
+
+useHead({
+  title: author || tag || '列表',
+})
 </script>
 
 <template>

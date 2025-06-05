@@ -10,32 +10,28 @@ export default defineEventHandler(async (event) => {
 
   if (id) {
     const poem = poems.find(p => p.id === id)
-    return poem ?? { error: '未找到相关诗歌', poems: [] }
+    if (poem) {
+      return { total: 1, poems: [poem] }
+    }
+    else {
+      return { error: '未找到相关诗歌', total: 0, poems: [] }
+    }
   }
 
   if (author) {
-    const results = poems.filter(p =>
-      p.author.includes(author),
-    )
+    const results = poems.filter(p => p.author.includes(author))
     return results.length > 0
-      ? {
-          total: results.length,
-          poems: results,
-        }
-      : { error: '未找到相关诗歌', poems: [] }
+      ? { total: results.length, poems: results }
+      : { error: '未找到相关诗歌', total: 0, poems: [] }
   }
 
   if (tag) {
     const results = poems.filter(p =>
       Array.isArray(p.tags) && p.tags.includes(tag),
     )
-
     return results.length > 0
-      ? {
-          total: results.length,
-          poems: results,
-        }
-      : { error: '未找到相关诗歌', poems: [] }
+      ? { total: results.length, poems: results }
+      : { error: '未找到相关诗歌', total: 0, poems: [] }
   }
 
   return {

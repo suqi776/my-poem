@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   poem: {
     id: string
     title: string
@@ -10,6 +10,13 @@ defineProps<{
 }>()
 
 const router = useRouter()
+
+useHead({
+  title: props.poem?.title && props.poem?.author
+    ? `${props.poem.title} - ${props.poem.author}`
+    : '诗词详情',
+})
+
 </script>
 
 <template>

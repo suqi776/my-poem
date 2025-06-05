@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const router = useRouter()
 const { data } = useFetch('/api/authors')
+
+useHead({
+  title: '作者',
+})
 </script>
 
 <template>

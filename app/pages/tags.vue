@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const router = useRouter()
 const { data } = useFetch('/api/tags')
+
+useHead({
+  title: '标签',
+})
 </script>
 
 <template>
