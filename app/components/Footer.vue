@@ -1,31 +1,27 @@
 <script setup lang="ts">
-const color = useColorMode()
+import { load } from 'jinrishici'
 
-useHead({
-  meta: [{
-    id: 'theme-color',
-    name: 'theme-color',
-    content: () => color.value === 'dark' ? '#222222' : '#ffffff',
-  }],
+const poem = ref([]) as any
+
+onMounted(() => {
+  load((result: any) => {
+    poem.value = result.data
+  })
 })
-
-function toggleDark() {
-  color.preference = color.value === 'dark' ? 'light' : 'dark'
-}
 </script>
 
 <template>
-  <nav w-full inline-flex justify-center gap-2 text-xl>
-    <button icon-btn title="Toggle Dark Mode" @click="toggleDark">
-      <div i-carbon-sun dark:i-carbon-moon />
-    </button>
-
-    <a
-      i-carbon-logo-github icon-btn
-      rel="noreferrer"
-      href="https://github.com/suqi776/my-nuxt"
-      target="_blank"
-      title="GitHub"
-    />
-  </nav>
+  <footer class="w-full inline-flex flex-col items-center justify-center gap-1 pt-5 text-sm text-gray-500 dark:text-gray-300">
+    <template v-if="poem">
+      <div class="text-center">
+        「{{ poem?.content }}」
+      </div>
+      <div class="text-xs">
+        —— {{ poem?.origin?.author }} · 《{{ poem?.origin?.title }}》
+      </div>
+    </template>
+    <div v-else>
+      未能加载诗词。
+    </div>
+  </footer>
 </template>

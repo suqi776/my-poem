@@ -12,6 +12,7 @@ useHead({
       <VitePwaManifest />
       <Nav />
       <NuxtPage />
+      <Footer />
     </div>
   </Bg>
 </template>
